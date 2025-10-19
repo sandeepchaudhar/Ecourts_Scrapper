@@ -1,11 +1,16 @@
 # eCourts Cause List Scraper 🏛️
 
-A modern, professional web application for scraping and downloading cause list PDFs from the Indian eCourts portal. Built with FastAPI backend and responsive frontend with real-time scraping capabilities.
+A modern, professional web application for scraping and downloading cause list PDFs from the Indian eCourts portal. Built with FastAPI backend and responsive frontend with real-time scraping capabilit[...]
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-green.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen.svg)
+
+### 🎬 Preview Video
+Watch a quick preview of the eCourt Scraper in action:
+
+[▶️ Watch Preview Video on Google Drive](https://docs.google.com/videos/d/13hhkrztWHz_M8f0rHusLGld5n6frPRKs2uG8zMIh4lc/edit?usp=sharing)
 
 ## 🚀 Features
 
@@ -407,3 +412,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Made with ❤️ for the Indian Legal System**
 
 *This tool helps lawyers, legal professionals, and citizens access court information more efficiently.*
+
+```
