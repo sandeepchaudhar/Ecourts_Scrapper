@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}eCourts Scraper{% endblock %}</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <!-- jsPDF for PDF generation -->
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <!-- Custom scraper JavaScript -->
+    <script src="/static/js/scraper.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/custom.css">
+    
+    <style>
+        body { 
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+        
+        .form-input {
+            transition: all 0.2s ease;
+            border: 1px solid #d1d5db;
+        }
+        
+        .form-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+        }
+        
+        .toast {
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+    
+    {% block head %}{% endblock %}
+</head>
+<body class="min-h-screen">
+    <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2"></div>
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    {% block scripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+            
+            // Check if jsPDF is loaded
+            setTimeout(() => {
+                if (window.jsPDF) {
+                    console.log('jsPDF loaded successfully');
+                } else if (window.jspdf && window.jspdf.jsPDF) {
+                    console.log('jsPDF loaded as jspdf.jsPDF');
+                } else {
+                    console.warn('jsPDF not loaded - will use text fallback');
+                }
+            }, 1000);
+        });
+        
+        window.showToast = function(message, type = 'info', duration = 5000) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const colors = {
+                success: 'bg-green-500 text-white',
+                error: 'bg-red-500 text-white',
+                warning: 'bg-yellow-500 text-black',
+                info: 'bg-blue-500 text-white'
+            };
+            
+            const icons = {
+                success: 'check-circle',
+                error: 'x-circle',
+                warning: 'alert-triangle',
+                info: 'info'
+            };
+            
+            toast.className = `toast flex items-center p-3 rounded-lg shadow-lg ${colors[type]} max-w-sm`;
+            toast.innerHTML = `
+                <i data-lucide="${icons[type]}" class="w-4 h-4 mr-2"></i>
+                <span class="flex-1 text-sm">${message}</span>
+                <button onclick="this.parentElement.remove()" class="ml-2 hover:opacity-75">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            `;
+            
+            container.appendChild(toast);
+            lucide.createIcons();
+            
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.remove();
+                }
+            }, duration);
+        };
+    </script>
+    {% endblock %}
+</body>
+</html>
