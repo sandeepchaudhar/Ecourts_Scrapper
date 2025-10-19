@@ -60,7 +60,7 @@ A modern, professional web application for scraping and downloading cause list P
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/Raahul-01/eCourt-Scrapper.git
+git clone https://github.com/sandeepchaudhar/eCourt-Scrapper.git
 cd eCourt-Scrapper
 ```
 
